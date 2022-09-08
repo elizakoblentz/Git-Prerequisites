@@ -13,6 +13,8 @@ public class Blob {
 		Blob b = new Blob("something.txt");
 	}
 	
+	
+	
 	private String getSHA1 (String s1){
 		String value = s1;
 		String output = "";
@@ -30,4 +32,10 @@ public class Blob {
 		return output; 
 	}
 	
+	public void createFile() throws IOException {
+		File f = new File("test/objects/" + hashed + ".txt");
+		PrintWriter pw = new PrintWriter(f);
+		pw.append(contents);
+		pw.close();
+	}
 }
