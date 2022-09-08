@@ -9,11 +9,28 @@ public class Blob {
 	private String hashed;
 	private String contents;
 	
-	public Blob(String fileName) throws IOException {
-		Blob b = new Blob("something.txt");
+	public static void main (String[]args) throws IOException{
+		Blob bob = new Blob("test/something.txt");
 	}
 	
-	
+	public Blob(String fileName) throws IOException {
+		String output = "";
+		
+		try {
+			File f = new File(fileName);
+			Scanner input = new Scanner(f);
+			while (input.hasNextLine())
+				output += input.nextLine();
+			input.close();
+		}
+		catch (FileNotFoundException exception) {
+			exception.printStackTrace();
+		}
+		
+		contents = output;
+		hashed = getSHA1(contents);
+		createFile();
+	}
 	
 	private String getSHA1 (String s1){
 		String value = s1;
@@ -22,7 +39,7 @@ public class Blob {
 		try {
 			MessageDigest digest = MessageDigest.getInstance("SHA-1");
 			digest.reset();
-			digest.update(s1.getBytes("utf8"));
+			digest.update(value.getBytes("utf8"));
 			output = String.format("%040x", new BigInteger(1, digest.digest()));
 		} catch (Exception exception){
 
