@@ -10,7 +10,7 @@ public class Blob {
 	private String contents;
 	
 	public static void main (String[]args) throws IOException{
-		Blob bob = new Blob("test/something.txt");
+		Blob bob = new Blob("something.txt");
 	}
 	
 	public Blob(String fileName) throws IOException {
