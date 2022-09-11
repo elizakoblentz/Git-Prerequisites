@@ -13,7 +13,7 @@ public class Index {
 		inx.add("foo.txt");
 		inx.add("bar.txt");
 		inx.add("foobar.txt");
-//		inx.remove("foo.txt");
+		inx.remove("foo.txt");
 	}
 	
 	public Index() {
@@ -33,6 +33,7 @@ public class Index {
 		File f = new File("test/" + fileName);
 		if (f.exists()) {
 			Blob bob = new Blob("test/" + fileName);
+			bob.createFile();
 			map.put(fileName, bob.getHashed());
 			PrintWriter pw = new PrintWriter("test/index.txt");
 			for (String s : map.keySet())

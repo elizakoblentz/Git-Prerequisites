@@ -13,7 +13,7 @@ public class Blob {
 	private String hashedZip;
 	
 	public static void main (String[]args) throws IOException{
-		Blob bob = new Blob("something.txt");
+		Blob bob = new Blob("test/something.txt");
 	}
 	
 	public Blob(String fileName) throws IOException {
@@ -32,6 +32,8 @@ public class Blob {
 		
 		contents = output;
 		hashed = getSHA1(contents);
+		zipped = zip();
+		hashedZip = getSHA1(zipped);
 		createFile();
 	}
 	
@@ -45,16 +47,14 @@ public class Blob {
 			digest.update(value.getBytes("utf8"));
 			output = String.format("%040x", new BigInteger(1, digest.digest()));
 		} catch (Exception exception){
-
 			exception.printStackTrace();
 		}
 
 		return output; 
 	}
 	
-	public static String compress(String str) throws IOException {
-	    if (str == null || str.length() == 0)
-	        return str;
+	public String zip() throws IOException {
+	    String str = contents;
 	    ByteArrayOutputStream out = new ByteArrayOutputStream();
 	    GZIPOutputStream gzip = new GZIPOutputStream(out);
 	    gzip.write(str.getBytes());
@@ -62,14 +62,35 @@ public class Blob {
 	    return out.toString("ISO-8859-1");
 	}
 	
+//	public static String compress(String str) throws IOException {
+//    if (str == null || str.length() == 0)
+//        return str;
+//    ByteArrayOutputStream out = new ByteArrayOutputStream();
+//    GZIPOutputStream gzip = new GZIPOutputStream(out);
+//    gzip.write(str.getBytes());
+//    gzip.close();
+//    return out.toString("ISO-8859-1");
+//	}
+	
+//	public void zip(String fileName) throws IOException{
+//		String str = "";
+//		BufferedReader br = new BufferedReader(new FileReader(fileName));
+//		while (br.ready()) {
+//			Character temp = (char)br.read();
+//			str += temp;
+//		}
+//		br.close();
+//		zipped = compress(str);
+//	}
+	
 	public void createFile() throws IOException {
-		File f = new File("test/objects/" + hashed + ".txt");
+		File f = new File("test/objects/" + hashedZip + ".txt");
 		PrintWriter pw = new PrintWriter(f);
-		pw.append(contents);
+		pw.append(zipped);
 		pw.close();
 	}
 	
 	public String getHashed() {
-		return hashed;
+		return hashedZip;
 	}
 }
