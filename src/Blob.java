@@ -3,6 +3,7 @@ import java.util.*;
 import java.io.*;
 import java.math.*;
 import java.security.*;
+import java.util.zip.*;
 
 public class Blob {
 
@@ -49,10 +50,24 @@ public class Blob {
 		return output; 
 	}
 	
+	public static String compress(String str) throws IOException {
+	    if (str == null || str.length() == 0)
+	        return str;
+	    ByteArrayOutputStream out = new ByteArrayOutputStream();
+	    GZIPOutputStream gzip = new GZIPOutputStream(out);
+	    gzip.write(str.getBytes());
+	    gzip.close();
+	    return out.toString("ISO-8859-1");
+	}
+	
 	public void createFile() throws IOException {
 		File f = new File("test/objects/" + hashed + ".txt");
 		PrintWriter pw = new PrintWriter(f);
 		pw.append(contents);
 		pw.close();
+	}
+	
+	public String getHashed() {
+		return hashed;
 	}
 }

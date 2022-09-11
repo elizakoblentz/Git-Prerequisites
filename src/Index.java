@@ -20,5 +20,12 @@ public class Index {
 		f2.mkdir();
 	}
 	
+	public void add(String fileName) throws IOException {
+		Blob bob = new Blob("test/" + fileName);
+		
+	}
 	
+	public void remove(String fileName) throws IOException {
+		
+	}
 }
