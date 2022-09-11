@@ -32,7 +32,7 @@ public class Blob {
 		
 		contents = output;
 		hashed = getSHA1(contents);
-		zipped = zip();
+		zipped = zippedContents();
 		hashedZip = getSHA1(zipped);
 		createFile();
 	}
@@ -53,7 +53,7 @@ public class Blob {
 		return output; 
 	}
 	
-	public String zip() throws IOException {
+	public String zippedContents() throws IOException {
 	    String str = contents;
 	    ByteArrayOutputStream out = new ByteArrayOutputStream();
 	    GZIPOutputStream gzip = new GZIPOutputStream(out);
@@ -70,17 +70,6 @@ public class Blob {
 //    gzip.write(str.getBytes());
 //    gzip.close();
 //    return out.toString("ISO-8859-1");
-//	}
-	
-//	public void zip(String fileName) throws IOException{
-//		String str = "";
-//		BufferedReader br = new BufferedReader(new FileReader(fileName));
-//		while (br.ready()) {
-//			Character temp = (char)br.read();
-//			str += temp;
-//		}
-//		br.close();
-//		zipped = compress(str);
 //	}
 	
 	public void createFile() throws IOException {

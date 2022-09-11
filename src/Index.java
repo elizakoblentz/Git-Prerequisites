@@ -5,7 +5,7 @@ import java.io.*;
 
 public class Index {
 	
-	private HashMap<String, String> map = new HashMap<String, String>();
+	private HashMap<String, String> map;
 	
 	public static void main (String[]args) throws IOException{
 		Index inx = new Index();
@@ -17,7 +17,7 @@ public class Index {
 	}
 	
 	public Index() {
-		
+		map = new HashMap<String, String>();
 	}
 	
 	public void init() throws FileNotFoundException {
