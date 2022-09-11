@@ -9,6 +9,8 @@ public class Blob {
 
 	private String hashed;
 	private String contents;
+	private String zipped;
+	private String hashedZip;
 	
 	public static void main (String[]args) throws IOException{
 		Blob bob = new Blob("something.txt");
