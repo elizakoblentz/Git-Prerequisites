@@ -73,8 +73,7 @@ public class Blob {
 //	}
 	
 	public void createFile() throws IOException {
-		File f = new File("test/objects/" + hashedZip + ".txt");
-		PrintWriter pw = new PrintWriter(f);
+		PrintWriter pw = new PrintWriter(new File("test/objects/" + hashedZip + ".txt"));
 		pw.append(zipped);
 		pw.close();
 	}

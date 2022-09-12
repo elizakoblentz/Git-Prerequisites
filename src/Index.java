@@ -21,19 +21,15 @@ public class Index {
 	}
 	
 	public void init() throws FileNotFoundException {
-		File f1 = new File("test/index.txt");
-		PrintWriter pw = new PrintWriter(f1);
-		pw.append("");
-		pw.close();
-		File f2 = new File("test/objects");
-		f2.mkdir();
+		File f = new File("test/index.txt");
+		new File("test/objects").mkdirs();
 	}
 	
 	public void add(String fileName) throws IOException {
 		File f = new File("test/" + fileName);
 		if (f.exists()) {
 			Blob bob = new Blob("test/" + fileName);
-			bob.createFile();
+//			bob.createFile();
 			map.put(fileName, bob.getHashed());
 			PrintWriter pw = new PrintWriter("test/index.txt");
 			for (String s : map.keySet())
@@ -43,12 +39,14 @@ public class Index {
 	}
 	
 	public void remove(String fileName) throws IOException {
-		File f = new File("test/objects/" + map.get(fileName) + ".txt");
-		f.delete();
-		map.remove(fileName);
-		PrintWriter pw = new PrintWriter("test/index.txt");
-		for (String s: map.keySet())
-			pw.append(s + ": " + map.get(s) + "\n");
-		pw.close();
+		if (map.containsKey(fileName)) {
+			File f = new File("test/objects/" + map.get(fileName) + ".txt");
+			f.delete();
+			map.remove(fileName);
+			PrintWriter pw = new PrintWriter("test/index.txt");
+			for (String s: map.keySet())
+				pw.append(s + ": " + map.get(s) + "\n");
+			pw.close();
+		}
 	}
 }
