@@ -8,16 +8,17 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 public class Tree {
+	
 	public Tree (ArrayList <String> strList) throws IOException, NoSuchAlgorithmException
 	{
 		String str = "";
 		int count = 0;
 		for (String g : strList) {
 			if (count != 0) {
-				str+="\n";
+				str += "\n";
 			}
 			count++;
-			str+= g;
+			str += g;
 		}
 		 // getInstance() method is called with algorithm SHA-1
         MessageDigest md = MessageDigest.getInstance("SHA-1");
@@ -39,10 +40,11 @@ public class Tree {
         }
 
         // return the HashText
-        BufferedWriter writer = new BufferedWriter(new FileWriter("objects/"+hashtext));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("test/objects/" + hashtext + ".txt"));
         writer.write(str);
         writer.close();
-        }
+    }
+	
 	public static void main (String[]args) throws NoSuchAlgorithmException, IOException {
 		ArrayList<String> t = new ArrayList<String>();
 		t.add("blob : 81e0268c84067377a0a1fdfb5cc996c93f6dcf9f");
@@ -51,7 +53,6 @@ public class Tree {
 		t.add("tree : bd1ccec139dead5ee0d8c3a0499b42a7d43ac44b");
 		t.add("tree : e7d79898d3342fd15daf6ec36f4cb095b52fd976");
 		Tree ne = new Tree(t);
-		
 	}
 }
 

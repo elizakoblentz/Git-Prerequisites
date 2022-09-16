@@ -30,7 +30,7 @@ public class IndexTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Path path= Paths.get("objects/");
+		Path path= Paths.get("test/objects/");
 		Files.exists(path);
 		fail("Not yet implemented");
 	}
