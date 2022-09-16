@@ -97,6 +97,27 @@ public class IndexTest {
 
 		fail("Not yet implemented");
 	}
+	@Test
+	public void testBlob() {
+		File testFile=new File("tester.txt");
+		PrintWriter pw;
+		try {
+			pw = new PrintWriter("tester.txt");
+			pw.append("this is a test");
+			pw.close();
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 	
+		try {
+			Blob bob = new Blob("tester.txt");
+			bob.getHashed();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
+}
 }
