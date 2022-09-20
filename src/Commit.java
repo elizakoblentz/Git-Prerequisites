@@ -14,39 +14,45 @@ public class Commit {
 	private static String author;
 	private static String date;
 	private static String fileName;
+	private static File parentFile;
 	
-	public Commit(String pointer, String s, String a, String p) throws FileNotFoundException {
-		pTree = pointer;
+	public Commit(String pt, String s, String a, String pointer) throws FileNotFoundException {
+		pTree = pt;
 		summary = s;
 		author = a;
-		date = "" + LocalDateTime.now();
-		if (p != null)
-			parent = p;
+		date = getDate();
+		if (pointer != null) {
+			parent = pointer;
+			parentFile = new File("test/objects" + pointer);
+		}
 		else
 			parent = null;
 		other = null;
 		
-		fileName = getSHA1();
+		String contents = summary + date + author + parent;
+		fileName = getSHA1(contents);
+		
+		writeFile();
 		
 		if (parent != null) {
 			Scanner input = new Scanner(new File("test/objects/" + parent));
-			String contents = "";
-			contents += input.nextLine() + "\n";
-			contents += input.nextLine() + "\n";
-			contents += fileName + "\n";
+			String pContents = "";
+			pContents += input.nextLine() + "\n";
+			pContents += input.nextLine() + "\n";
+			pContents += fileName + "\n";
 			input.nextLine();
-			contents += input.nextLine() + "\n";
-			contents += input.nextLine() + "\n";
-			contents += input.nextLine() + "\n";
+			pContents += input.nextLine() + "\n";
+			pContents += input.nextLine() + "\n";
+			pContents += input.nextLine() + "\n";
 			
 			PrintWriter pw = new PrintWriter("test/objects/" + parent);
-			pw.append(contents);
+			pw.append(pContents);
 			pw.close();
 		}
 	}
 	
-	private String getSHA1(){
-		String value = "" + summary + date + author + parent;
+	private String getSHA1(String str){
+		String value = str;
 		String output = "";
 
 		try {
@@ -62,19 +68,43 @@ public class Commit {
 	}
 	
 	public static String getDate() {
-		return date;
+		return "" + LocalDateTime.now();
 	}
 	
 	public void writeFile() throws FileNotFoundException {
 		PrintWriter pw = new PrintWriter("test/objects/" + new File(fileName));
-		pw.append(pTree + "\n");
+		pw.append(fileName + "\n");
 		if (parent != null)
 			pw.append(parent + "\n");
-		pw.append(other + "\n");
+		if (other != null)
+			pw.append(other + "\n");
 		pw.append(author + "\n");
 		pw.append(date + "\n");
 		pw.append(summary + "\n");
 		pw.close();
 	}
-
+	
+	public String getCommitName() {
+		return fileName;
+	}
+	
+	public String getChild() {
+		return other;
+	}
+	
+	public void setChild(Commit child) {
+		other = child.getCommitName();
+	}
+	
+	public String getParent() {
+		return parent;
+	}
+	
+	public void setParent(Commit par) {
+		parent = par.getCommitName();
+	}
+	
+	public String getpTree() {
+		return pTree;
+	}
 }
