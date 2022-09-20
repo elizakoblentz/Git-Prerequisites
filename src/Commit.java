@@ -16,6 +16,10 @@ public class Commit {
 	private static String fileName;
 	private static File parentFile;
 	
+	public static void main (String[]args) throws IOException{
+		
+	}
+	
 	public Commit(String pt, String s, String a, String pointer) throws FileNotFoundException {
 		pTree = pt;
 		summary = s;
