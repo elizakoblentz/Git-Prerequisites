@@ -14,7 +14,6 @@ public class Commit {
 	private static String author;
 	private static String date;
 	private static String fileName;
-	private static File parentFile;
 	
 	public static void main (String[]args) throws IOException{
 		
@@ -25,10 +24,8 @@ public class Commit {
 		summary = s;
 		author = a;
 		date = getDate();
-		if (pointer != null) {
+		if (pointer != null)
 			parent = pointer;
-			parentFile = new File("test/objects" + pointer);
-		}
 		else
 			parent = null;
 		other = null;
