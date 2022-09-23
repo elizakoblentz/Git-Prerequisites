@@ -1,3 +1,4 @@
+package Git;
 
 import java.util.*;
 import java.io.*;
@@ -73,7 +74,7 @@ public class Blob {
 //	}
 	
 	public void createFile() throws IOException {
-		PrintWriter pw = new PrintWriter(new File("test/objects/" + hashedZip + ".txt"));
+		PrintWriter pw = new PrintWriter(new File("test/objects/" + hashedZip));
 		pw.append(zipped);
 		pw.close();
 	}

@@ -1,3 +1,4 @@
+package test;
 import static org.junit.Assert.*;
 
 import java.io.File;
@@ -10,6 +11,8 @@ import java.nio.file.Paths;
 
 import org.junit.Test;
 
+import Git.Index;
+import Git.Blob;
 public class IndexTest {
 
 	
